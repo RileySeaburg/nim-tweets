@@ -11,12 +11,21 @@ routes:
       if not db.findUser(request.cookies["username"], user):
         user = User(username: request.cookies["username"], following: @[])
         db.create(user)
-      let messages = db.findMessages(user.following)
+      let messages = db.findMessages(user.following & user.username)
       resp renderMain(renderTimeline(user.username, messages))
     else:
       resp renderMain(renderLogin())
   post "/login":
     setCookie("username", @"username", now() + 2.hours)
+    redirect("/")
+  post "/createMessage":
+    echo "username: ",  @"username", " message: ", @"message"
+    let message = Message(
+      username: @"username",
+      time: now().toTime(),
+      msg: @"message"
+    )
+    db.post(message)
     redirect("/")
 
 runForever()

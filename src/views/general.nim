@@ -21,9 +21,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
       integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
       crossorigin="anonymous"></script>
+    <link rel='stylesheet' href='style.css'>
   </head>
 
-  <body class="bg-dark text-white">
+  <body class="">
     <div id="main" class="d-flex justify-content-center flex-column align-middle" style="height: 100vh">
       ${body}
     </div>
@@ -35,7 +36,7 @@
 # proc renderLogin*(): string =
 # result = ""
 <div id="login" class=" d-flex justify-content-center ">
-  <form action="/login" method="post" class="w-25 d-flex justify-content-center flex-column">
+  <form action="/login" method="post" class="d-flex justify-content-center flex-column">
     <div class="form-group">
       <label for="username">Username</label>
       <input type="text" class="form-control " id="username" name="username" placeholder="Enter username">
@@ -51,15 +52,15 @@
 #
 #proc renderTimeline*(username: string, messages: seq[Message]): string =
 # result = ""
-<div id"newMessage">
-  <span>New Message</span>
+<div id="user">
+  <h1>${$!username}'s timeline</h1>
+</div>
+<div id="newMessage">
+  <span>New message</span>
   <form action="createMessage" method="post">
-    <div class="form-group">
-      <input type="text" class="form-control bg-dark text-white" id="message" name="message"
-        placeholder="Enter message">
-      <input type="hidden" name="username" value="${$!username}">
-    </div>
-    <input type="submit" class="btn btn-primary" value="Submit">
+    <input type="text" name="message">
+    <input type="hidden" name="username" value="${$!username}">
+    <input type="submit" value="Tweet">
   </form>
 </div>
 ${renderMessages(messages)}
